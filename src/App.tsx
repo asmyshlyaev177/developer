@@ -1,5 +1,6 @@
 import * as stylex from '@stylexjs/stylex';
 
+// use rem/em, depend on body font size
 const gap = '24px';
 const headerHeight = '200px';
 
