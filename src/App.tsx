@@ -1,39 +1,15 @@
-import * as stylex from '@stylexjs/stylex';
-
-// use rem/em, depend on body font size
-const gap = '24px';
-const headerHeight = '200px';
-
-const styles = stylex.create({
-  container: {
-    backgroundColor: 'black',
-    padding: gap,
-    color: 'white',
-    display: 'flex',
-    flexDirection: 'column',
-    gap,
-    position: 'relative',
-  },
-  header: {
-    height: headerHeight,
-    position: 'sticky',
-    top: 0,
-  },
-  screenHeight: {
-    height: `calc(100vh - ${headerHeight} - ${gap} * 2)`,
-  },
-  border: {
-    border: '1px solid blue',
-  },
-});
+import { Container } from 'components/Container';
+import { Header } from 'components/Header';
+import { Hero } from 'components/Hero';
+import { Skills } from 'components/Skills';
 
 function App() {
   return (
-    <div {...stylex.props(styles.container)}>
-      <div {...stylex.props(styles.header, styles.border)}>HEADER</div>
-      <div {...stylex.props(styles.screenHeight, styles.border)}>HERO</div>
-      <div {...stylex.props(styles.screenHeight, styles.border)}>SKILLS</div>
-    </div>
+    <Container>
+      <Header />
+      <Hero />
+      <Skills />
+    </Container>
   );
 }
 

@@ -13,5 +13,6 @@ module.exports = {
     allowImportExportEverywhere: true,
   },
   rules: {
+    "react/no-unescaped-entities": "off"
   }
 };

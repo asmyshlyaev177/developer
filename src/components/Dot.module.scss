@@ -1,0 +1,57 @@
+.dot {
+  aspect-ratio: 1;
+  height: 3rem;
+  width: 3rem;
+  background-color: var(--color-brand);
+  border-radius: 50%;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.pulse {
+  animation: 3s ease 0s infinite pulse;
+  mask-image: radial-gradient(
+    black,
+    rgb(#000, 85%),
+    rgb(#000, 60%),
+    rgb(#000, 10%)
+  );
+}
+
+.pulseSlow {
+  animation: 6s ease-in-out 0s infinite pulse1;
+  mask-image: radial-gradient(
+    black,
+    rgb(#000, 85%),
+    rgb(#000, 60%),
+    rgb(#000, 15%)
+  );
+
+  &:hover {
+    animation: none;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  30%,
+  80% {
+    opacity: 0.15;
+  }
+}
+
+@keyframes pulse1 {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  30%,
+  80% {
+    opacity: 0.45;
+  }
+}

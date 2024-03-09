@@ -1,0 +1,9 @@
+.container {
+  background-color: black;
+  padding: var(--gap);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  position: relative;
+}
