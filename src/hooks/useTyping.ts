@@ -32,6 +32,7 @@ export const useTyping = ({
 
   return {
     text: currText,
+    textToAnimate: text.slice(cursor),
     isRunning: ready && currText.length < text.length,
     isFinished: ready && currText.length === text.length,
   };
