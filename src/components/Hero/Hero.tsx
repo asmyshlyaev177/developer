@@ -4,8 +4,8 @@ import classes from './Hero.module.scss';
 
 // TODO: https://www.smashingmagazine.com/2021/07/dynamic-header-intersection-observer/
 
-import { TextTyping } from './TextTyping';
-import { Dot } from './Dot';
+import { TextTyping } from 'components/TextTyping';
+import { Dot } from 'components/Dot';
 
 type TextEntry = { text: string; interval: number; delay: number };
 
@@ -28,8 +28,7 @@ export const Hero = () => {
     <section className={classes.hero}>
       <div className={classes.block}>
         <Dot delay={dotDelay} />
-        {/* TODO: proper breakpoints */}
-        <div style={{ minWidth: '40vw', minHeight: '20vh' }}>
+        <div className={classes['inner-wrapper']}>
           <div>
             <TextTyping
               text={texts[0].text}
