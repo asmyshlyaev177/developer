@@ -2,69 +2,55 @@ import React from 'react';
 
 import classes from './Hero.module.scss';
 
+import { Queue, type TextEntry } from 'components/Queue';
+
 // TODO: https://www.smashingmagazine.com/2021/07/dynamic-header-intersection-observer/
 
 import { TextTyping } from 'components/TextTyping';
 import { Dot } from 'components/Dot';
 
-type TextEntry = { text: string; interval: number; delay: number };
-
 // Add random delay for every keystroke?
 const texts: TextEntry[] = [
   // Stub for font load
-  { text: '', interval: 80, delay: 700 },
-  { text: "Hello, I'm ", interval: 80, delay: 300 },
-  { text: 'Alex', interval: 80, delay: 500 },
-  { text: 'I am a Javascript Frontend Developer', interval: 50, delay: 300 },
-  { text: 'Scroll down to see more...', interval: 50, delay: 0 },
+  { id: '0', text: '', interval: 80, delay: 700 },
+  { id: '1', text: "Hello, I'm ", interval: 80, delay: 200 },
+  { id: '2', text: 'Alex', interval: 80, delay: 500 },
+  {
+    id: '3',
+    text: 'I am a Javascript Frontend Developer',
+    interval: 50,
+    delay: 300,
+  },
+  { id: '4', text: 'Scroll down to see more...', interval: 50, delay: 0 },
 ];
 
-const calcDelay = (arr: TextEntry[], index: number) =>
-  arr
-    .slice(0, index)
-    .reduce((acc, val) => acc + val.delay + val.text.length * val.interval, 0);
-
-const dotDelay = calcDelay(texts, texts.length);
-
-// TODO: single state for whole animation
-// setInterval isn't reliable enough
-// create class and events
+// TODO:
 // try this https://github.com/theatre-js/theatre/tree/main/packages/dataverse#tickers
 export const Hero = () => {
+  const [isAnimating, setIsAnimating] = React.useState(true);
+  const queue = React.useRef(new Queue(texts, () => setIsAnimating(false)));
+  React.useEffect(() => {
+    queue.current.run();
+  }, []);
+
   return (
     <section className={classes.hero}>
       <div className={classes.block}>
-        <Dot delay={dotDelay} />
+        <Dot active={isAnimating} />
         <div className={classes['inner-wrapper']}>
           <div>
-            <TextTyping
-              text={texts[1].text}
-              delay={calcDelay(texts, 1)}
-              interval={texts[1].interval}
-            />
+            <TextTyping id="1" queue={queue} />
             <strong>
-              <TextTyping
-                text={texts[2].text}
-                delay={calcDelay(texts, 2)}
-                interval={texts[2].interval}
-              />
+              <TextTyping id="2" queue={queue} />
             </strong>
           </div>
 
           <div>
-            <TextTyping
-              text={texts[3].text}
-              delay={calcDelay(texts, 3)}
-              interval={texts[3].interval}
-            />
+            <TextTyping id="3" queue={queue} />
           </div>
 
           <div>
-            <TextTyping
-              text={texts[4].text}
-              delay={calcDelay(texts, 4)}
-              interval={texts[4].interval}
-            />
+            <TextTyping id="4" queue={queue} />
           </div>
         </div>
       </div>

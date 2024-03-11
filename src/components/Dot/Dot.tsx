@@ -1,12 +1,9 @@
 import classes from './Dot.module.scss';
-import { useDelay } from 'hooks/useDelay';
 
-export const Dot = ({ delay }: { delay: number }) => {
-  const ready = useDelay(delay);
-
+export const Dot = ({ active }: { active: boolean }) => {
   return (
     <span
-      className={`${classes.dot} ${ready ? classes.pulseSlow : classes.pulse}`}
+      className={`${classes.dot} ${active ? classes.pulse : classes.pulseSlow}`}
     ></span>
   );
 };
