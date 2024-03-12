@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './Hero.module.scss';
 
-import { Queue, type TextEntry } from 'components/Queue';
+import { type TextEntry, useQueue } from 'components/Queue';
 
 // TODO: https://www.smashingmagazine.com/2021/07/dynamic-header-intersection-observer/
 
@@ -27,16 +27,21 @@ const texts: TextEntry[] = [
 // TODO:
 // try this https://github.com/theatre-js/theatre/tree/main/packages/dataverse#tickers
 export const Hero = () => {
-  const [isAnimating, setIsAnimating] = React.useState(true);
-  const queue = React.useRef(new Queue(texts, () => setIsAnimating(false)));
-  React.useEffect(() => {
+  const { isAnimating, queue } = useQueue(texts);
+
+  // TODO: css flip animation on Dot click and reset typing last 2 lines
+
+  // TODO: pass Queue through context
+
+  const reset = React.useCallback(() => {
+    queue.current.reset();
     queue.current.run();
-  }, []);
+  }, [queue]);
 
   return (
     <section className={classes.hero}>
       <div className={classes.block}>
-        <Dot active={isAnimating} />
+        <Dot active={isAnimating} onClick={reset} />
         <div className={classes['inner-wrapper']}>
           <div>
             <TextTyping id="1" queue={queue} />
@@ -44,14 +49,14 @@ export const Hero = () => {
               <TextTyping id="2" queue={queue} />
             </strong>
           </div>
-
+          {/*
           <div>
             <TextTyping id="3" queue={queue} />
           </div>
 
           <div>
             <TextTyping id="4" queue={queue} />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

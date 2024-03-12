@@ -14,11 +14,20 @@ export const TextTyping = ({
 
   React.useEffect(() => {
     const cb = (val: string) => {
+      console.log('CB', val);
       setIsAnimating(true);
       setText((curr) => curr + val);
     };
-    const onDone = () => setIsAnimating(false);
-    return queue.current.subscribe(id, cb, onDone);
+    const onDone = () => {
+      setIsAnimating(false);
+      console.log('onDone', { id });
+    };
+    const onReset = () => {
+      setText('');
+      setIsAnimating(false);
+      console.log('onReset', { id });
+    };
+    return queue.current.subscribe(id, cb, onDone, onReset);
   }, [id, queue]);
 
   return (
