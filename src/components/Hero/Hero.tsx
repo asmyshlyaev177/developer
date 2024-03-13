@@ -29,8 +29,6 @@ const texts: TextEntry[] = [
 export const Hero = () => {
   const { isAnimating, reset, useSubscribe } = useQueue(texts);
 
-  // TODO: css flip animation on Dot click and reset typing last 2 lines
-
   return (
     <section className={classes.hero}>
       <div className={classes.block}>
