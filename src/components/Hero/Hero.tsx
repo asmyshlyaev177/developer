@@ -9,7 +9,6 @@ import { type TextEntry, useQueue } from 'components/Queue';
 import { TextTyping } from 'components/TextTyping';
 import { Dot } from 'components/Dot';
 
-// Add random delay for every keystroke?
 const texts: TextEntry[] = [
   // Stub for font load
   { id: '0', text: '', interval: 80, delay: 700 },
@@ -24,8 +23,7 @@ const texts: TextEntry[] = [
   { id: '4', text: 'Scroll down to see more...', interval: 50, delay: 0 },
 ];
 
-// TODO:
-// try this https://github.com/theatre-js/theatre/tree/main/packages/dataverse#tickers
+// TODO: try this https://github.com/theatre-js/theatre/tree/main/packages/dataverse#tickers
 export const Hero = () => {
   const { isAnimating, reset, useSubscribe } = useQueue(texts);
 
