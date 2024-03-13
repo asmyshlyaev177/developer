@@ -27,16 +27,9 @@ const texts: TextEntry[] = [
 // TODO:
 // try this https://github.com/theatre-js/theatre/tree/main/packages/dataverse#tickers
 export const Hero = () => {
-  const { isAnimating, queue } = useQueue(texts);
+  const { isAnimating, reset, useSubscribe } = useQueue(texts);
 
   // TODO: css flip animation on Dot click and reset typing last 2 lines
-
-  // TODO: pass Queue through context
-
-  const reset = React.useCallback(() => {
-    queue.current.reset();
-    queue.current.run();
-  }, [queue]);
 
   return (
     <section className={classes.hero}>
@@ -44,19 +37,19 @@ export const Hero = () => {
         <Dot active={isAnimating} onClick={reset} />
         <div className={classes['inner-wrapper']}>
           <div>
-            <TextTyping id="1" queue={queue} />
+            <TextTyping id="1" useSubscribe={useSubscribe} />
             <strong>
-              <TextTyping id="2" queue={queue} />
+              <TextTyping id="2" useSubscribe={useSubscribe} />
             </strong>
-          </div>
-          {/*
-          <div>
-            <TextTyping id="3" queue={queue} />
           </div>
 
           <div>
-            <TextTyping id="4" queue={queue} />
-          </div> */}
+            <TextTyping id="3" useSubscribe={useSubscribe} />
+          </div>
+
+          <div>
+            <TextTyping id="4" useSubscribe={useSubscribe} />
+          </div>
         </div>
       </div>
     </section>

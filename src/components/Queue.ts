@@ -11,95 +11,98 @@ export type TextEntry = {
   delay: number;
 };
 
-async function* textTyper(text: string, interval: number) {
-  if (!text.length) {
-    yield undefined;
-  }
-  for (const char of text.split('')) {
-    await new Promise((res) => setTimeout(res, interval));
-    yield char;
-  }
-}
-
-// TODO: use promises with returning a class and get rid of generators?
-async function* textQueue(arr: TextEntry[]) {
-  for (let i = 0; i < arr.length; i++) {
-    const entry = arr[i];
-    const typer = textTyper(entry.text, entry.interval);
-
-    // TODO: return promise with setTimeout from yield
-    await new Promise((res) => setTimeout(res, entry.delay));
-
-    let done = false;
-    while (!done) {
-      const res = await typer.next();
-      done = !!res.done;
-      yield { id: entry.id, value: res.value || '', last: done };
-    }
-  }
-}
-
-// TODO: just put promises with desired resolved values in a stack
-// easy to manage
+type AnimPromise = () => Promise<{ id: string; char: string }>;
 export class Queue {
   arr: TextEntry[];
+  stack: AnimPromise[];
   subscriptions: Map<string, [Cb, onDone, onReset]>;
   running: boolean;
   done: boolean;
+  count: number;
   queue:
     | undefined
     | AsyncGenerator<{ id: string; value: string; last: boolean }>;
   onDone: () => void;
   constructor(arr: TextEntry[], onDone: () => void) {
     this.arr = arr;
+    this.stack = [];
     this.subscriptions = new Map();
     this.running = false;
     this.onDone = onDone;
     this.queue = undefined;
     this.done = false;
+    this.count = 0;
   }
 
-  public run = async () => {
-    if (this.running) {
-      return false;
-    }
-    this.running = true;
-    this.queue = textQueue(this.arr);
+  private getNextProm = () => {
+    return this.stack.splice(0, 1)[0];
+  };
 
-    // TODO: need way to cancel promises
-    while (!this.done) {
-      const res = await this.queue.next();
-      this.done = !!res.done;
-      const id = res.value?.id;
-      const value = res.value?.value;
-      const last = res.value?.last;
-      const [cb, onDone] = (id && this.subscriptions.get(id)) || [];
-      if (value) {
-        cb?.(value);
-      }
-      last && onDone?.();
+  private notify = (id: string, val: string) => {
+    this.subscriptions.get(id)?.[0](val);
+  };
+
+  private fillStack = () => {
+    this.stack = this.arr.reduce<AnimPromise[]>((acc, val) => {
+      const promises: AnimPromise[] = [
+        () =>
+          new Promise((res) => {
+            setTimeout(() => res({ id: val.id, char: '' }), val.delay);
+          }),
+      ];
+      const charPromises: AnimPromise[] = val.text.split('').map(
+        (char) => () =>
+          new Promise((res) => {
+            setTimeout(() => res({ id: val.id, char }), val.interval);
+          }),
+      );
+      const onDone: AnimPromise = () =>
+        new Promise((res) =>
+          setTimeout(() => {
+            this.subscriptions.get(val.id)?.[1]('');
+            res({ id: val.id, char: '' });
+          }, 100),
+        );
+
+      return acc.concat(promises).concat(charPromises).concat([onDone]);
+    }, []);
+  };
+
+  private execStack = (prom: AnimPromise) => {
+    prom &&
+      prom?.().then((res) => {
+        res.char && this.notify(res.id, res.char);
+        return this.execStack(this.getNextProm());
+      });
+
+    if (!this.stack.length) {
+      this.running = false;
+      return this.onDone();
     }
-    this.running = false;
-    this.onDone();
+  };
+
+  public run = async () => {
+    if (!this.running) {
+      this.fillStack();
+      this.running = true;
+      return this.execStack(this.getNextProm());
+    }
   };
 
   public reset = () => {
     return new Promise((res) => {
-      res(
-        (() => {
-          this.running = false;
-          this.done = true;
-          setTimeout(() =>
-            [...this.subscriptions].forEach(
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              ([_id, [_cb, _onDone, onReset]]) => {
-                onReset?.();
-              },
-              0,
-            ),
-          );
-        })(),
-      );
+      this.running = false;
+      this.done = true;
+      this.stack = [];
+      setTimeout(() => {
+        [...this.subscriptions].forEach(
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          ([_id, [_cb, _onDone, onReset]]) => {
+            onReset?.();
+          },
+        );
+        res(this);
+      }, 100);
     });
   };
 
@@ -119,20 +122,33 @@ export const useQueue = (texts: TextEntry[]) => {
     queue.current.run();
   }, []);
 
-  // // TODO: use context?
-  // const useQueueEntry = React.useCallback(() => {
-  //   const [text, setText] = React.useState('');
-  //   const [isAnimating, setIsAnimating] = React.useState(false);
+  const reset = React.useCallback(async () => {
+    await queue.current.reset();
+    setIsAnimating(true);
+    queue.current.run();
+  }, [queue]);
 
-  //   React.useEffect(() => {
-  //     const cb = (val: string) => {
-  //       setIsAnimating(true);
-  //       setText((curr) => curr + val);
-  //     };
-  //     const onDone = () => setIsAnimating(false);
-  //     return queue.current.subscribe(id, cb, onDone);
-  //   }, [id, queue]);
-  // }, []);
+  const useSubscribe = (id: string) => {
+    const [text, setText] = React.useState('');
+    const [isAnimating, setIsAnimating] = React.useState(false);
 
-  return { isAnimating, queue };
+    React.useEffect(() => {
+      const cb = (val: string) => {
+        setIsAnimating(true);
+        setText((curr) => curr + val);
+      };
+      const onDone = () => {
+        setIsAnimating(false);
+      };
+      const onReset = () => {
+        setText('');
+        setIsAnimating(false);
+      };
+      return queue.current.subscribe(id, cb, onDone, onReset);
+    }, [id]);
+
+    return { text, isAnimating };
+  };
+
+  return { isAnimating, queue, reset, useSubscribe };
 };
