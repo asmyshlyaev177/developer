@@ -12,16 +12,13 @@ export type TextEntry = {
 };
 
 type AnimPromise = () => Promise<{ id: string; char: string }>;
-export class Queue {
+class Queue {
   arr: TextEntry[];
   stack: AnimPromise[];
   subscriptions: Map<string, [Cb, onDone, onReset]>;
   running: boolean;
   done: boolean;
   count: number;
-  queue:
-    | undefined
-    | AsyncGenerator<{ id: string; value: string; last: boolean }>;
   onDone: () => void;
   constructor(arr: TextEntry[], onDone: () => void) {
     this.arr = arr;
@@ -29,7 +26,6 @@ export class Queue {
     this.subscriptions = new Map();
     this.running = false;
     this.onDone = onDone;
-    this.queue = undefined;
     this.done = false;
     this.count = 0;
   }
