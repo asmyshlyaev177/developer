@@ -8,6 +8,7 @@ import { type TextEntry, useQueue } from 'components/Queue';
 
 import { TextTyping } from 'components/TextTyping';
 import { Dot } from 'components/Dot';
+import { useMouseTilt } from 'hooks/useMouseTilt';
 
 const texts: TextEntry[] = [
   // Stub for font load
@@ -20,18 +21,26 @@ const texts: TextEntry[] = [
     interval: 50,
     delay: 300,
   },
-  { id: '4', text: 'Scroll down to see more...', interval: 50, delay: 0 },
+  { id: '4', text: 'specializing on ', interval: 50, delay: 0 },
+  { id: '5', text: 'React.js', interval: 50, delay: 0 },
 ];
 
 // TODO: try this https://github.com/theatre-js/theatre/tree/main/packages/dataverse#tickers
 export const Hero = () => {
   const { isAnimating, reset, useSubscribe } = useQueue(texts);
 
+  const { elRef, onMouseMove, onMouseLeave } = useMouseTilt();
+
   return (
     <section className={classes.hero}>
       <div className={classes.block}>
         <Dot active={isAnimating} onClick={reset} />
-        <div className={classes['inner-wrapper']}>
+        <div
+          className={classes['inner-wrapper']}
+          ref={elRef}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}
+        >
           <div>
             <TextTyping id="1" useSubscribe={useSubscribe} />
             <strong>
@@ -45,6 +54,9 @@ export const Hero = () => {
 
           <div>
             <TextTyping id="4" useSubscribe={useSubscribe} />
+            <strong>
+              <TextTyping id="5" useSubscribe={useSubscribe} />
+            </strong>
           </div>
         </div>
       </div>

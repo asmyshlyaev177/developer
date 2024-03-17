@@ -3,7 +3,8 @@ import React from 'react';
 import { type Control } from 'types';
 import { getRandomArrEl } from 'helpers';
 import classes from './Input.module.scss';
-import { stubCb, useTrottle } from 'helpers';
+import { stubCb } from 'helpers';
+import { useTrottle } from 'hooks/useTrottle';
 
 export const Input = ({
   control,
@@ -47,7 +48,7 @@ export const Input = ({
   return (
     <>
       <label htmlFor="input" className={classes.label}>
-        Your Name
+        Name
       </label>
       <input
         placeholder="..."

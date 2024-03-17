@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { type Control } from 'types';
-import { useTrottle } from 'helpers';
+import { useTrottle } from 'hooks/useTrottle';
 import classes from './Checkbox.module.scss';
 
 export const Checkbox = ({
@@ -42,7 +42,7 @@ export const Checkbox = ({
         className={classes.input}
       />
       <label htmlFor="checkbox" className={classes.label}>
-        <span>Impressed?</span>
+        <span>Impressed</span>
       </label>
     </div>
   );
