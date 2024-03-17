@@ -1,0 +1,67 @@
+.container {
+  // height: calc(100vh - var(--header-height-big) - var(--gap) * 2);
+  // height: 80vh;
+  height: 80vh;
+  border: 1px solid white;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.scene {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  height: 100%;
+  padding: 30px;
+  background-color: grey;
+  max-width: 800px;
+  min-height: 300px;
+  // TODO: media queries
+  width: 100%;
+}
+
+.ball {
+  width: 30px;
+  height: 30px;
+  aspect-ratio: 1;
+  background-color: green;
+  border-radius: 50%;
+  position: absolute;
+  top: -10%;
+  left: -10%;
+}
+
+.field1 {
+  display: block;
+  position: relative;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid green;
+  width: 120px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.field2 {
+  display: block;
+  position: relative;
+  align-self: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid green;
+  transform: translateX(-20px);
+}
+
+.field3 {
+  display: block;
+  position: relative;
+  align-self: flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border: 1px solid green;
+}

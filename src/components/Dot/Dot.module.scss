@@ -1,9 +1,9 @@
 .dot {
+  cursor: pointer;
   aspect-ratio: 1;
   height: 3rem;
   width: 3rem;
   margin: 0;
-  // background-color: var(--color-brand);
   border-radius: 50%;
   display: inline-block;
   transition: all 0.3s;
