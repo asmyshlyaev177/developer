@@ -18,7 +18,6 @@
   background-color: grey;
   max-width: 800px;
   min-height: 300px;
-  // TODO: media queries
   width: 100%;
 }
 
@@ -32,6 +31,10 @@
   width: 120px;
   display: flex;
   justify-content: flex-start;
+
+  @media only screen and (max-width: 600px) {
+    margin-left: -16px;
+  }
 }
 
 .field2 {
@@ -46,11 +49,16 @@
 }
 
 .field3 {
+  width: auto;
   display: block;
   position: relative;
   align-self: flex-end;
-  width: 100%;
   display: flex;
   justify-content: flex-end;
   border: 1px solid green;
+  margin-left: auto;
+
+  @media only screen and (max-width: 600px) {
+    margin-right: -16px;
+  }
 }
