@@ -2,7 +2,6 @@
   width: 30px;
   height: 30px;
   aspect-ratio: 1;
-  // background-color: green;
   border-radius: 50%;
   position: absolute;
   top: -10%;
@@ -43,14 +42,14 @@
   border-radius: 50%;
 
   &::before {
-    opacity: 0.2;
+    opacity: 0.8;
     content: '';
     position: absolute;
     top: 0px;
     left: 0px;
     height: 30px;
     width: 30px;
-    background-image: url(https://i.stack.imgur.com/ayCw7.png);
+    background-image: url(/gold-ball.png);
     background-size: 30px 30px;
   }
 
