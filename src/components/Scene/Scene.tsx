@@ -10,6 +10,7 @@ import { Input } from './Input';
 import { Checkbox } from './Checkbox';
 import { State } from './State';
 import { stubCb } from 'helpers';
+import { Ball } from './Ball';
 
 import { type Control } from 'types';
 
@@ -23,6 +24,8 @@ export const Scene = () => {
     field2: { current: { act: stubCb } },
   });
 
+  const ballRef = React.useRef<HTMLDivElement | null>(null);
+
   React.useEffect(() => {
     // studio.initialize();
 
@@ -34,18 +37,25 @@ export const Scene = () => {
       field: '',
     });
 
-    const ballElement = document.getElementById('ball')!;
     obj.onValuesChange((obj) => {
-      ballElement.style.left = `${obj.x}%`;
-      ballElement.style.top = `${obj.y}%`;
+      if (!ballRef.current) {
+        return false;
+      }
+      ballRef.current.style.left = `${obj.x}%`;
+      ballRef.current.style.top = `${obj.y}%`;
       if (obj.field) {
         refs.current[`field${obj.field}` as fields]?.current?.act?.();
       }
     });
 
     project.ready.then(() => {
-      sheet.sequence.play({ iterationCount: Infinity, range: [0, 2] });
+      sheet.sequence.play({ iterationCount: Infinity, range: [0, 3.5] });
     });
+    // TODO: play/pause with intersectionObserver
+    // setTimeout(() => {
+    //   sheet.sequence.pause();
+    //   sheet.sequence.position = 0;
+    // }, 5000);
   }, []);
 
   const [state, setState] = React.useState({
@@ -64,7 +74,7 @@ export const Scene = () => {
   return (
     <section className={classes.container}>
       <div className={classes.scene}>
-        <div id="ball" className={classes.ball}></div>
+        <Ball ref={ballRef} />
 
         <div className={classes.field1}>
           <Input control={refs.current.field1} onUpdate={onUpdate1} />
@@ -144,17 +154,20 @@ const projectState = {
                     id: 'Wbr0Zge1tj',
                     position: 1.733,
                     connectedRight: true,
-                    handles: [0.515799723201161, 0.9773021571372923, 0.5, 0],
+                    handles: [
+                      0.515799723201161, 0.9773021571372923, 0.5202204023860075,
+                      0.6659838433615002,
+                    ],
                     type: 'bezier',
                     value: 88,
                   },
                   {
                     id: 'pjMrAj-oCE',
-                    position: 1.933,
+                    position: 2.3,
                     connectedRight: true,
-                    handles: [0.5, 1, 0.5, 0],
+                    handles: [0.5431166632650447, 0.8530989425141517, 0.5, 0],
                     type: 'bezier',
-                    value: 98,
+                    value: 101.28404181824843,
                   },
                 ],
               },
@@ -201,13 +214,13 @@ const projectState = {
                       0.563783482563087, -1.6036880845880959,
                     ],
                     type: 'bezier',
-                    value: 89,
+                    value: 88.16329317325838,
                   },
                   {
                     id: 'Yvbgpsgkjy',
-                    position: 1.933,
+                    position: 2.3,
                     connectedRight: true,
-                    handles: [0.6217684667113478, -0.46423694679782646, 0.5, 0],
+                    handles: [0.6891698079980394, -0.3338753457992627, 0.5, 0],
                     type: 'bezier',
                     value: 101,
                   },
@@ -293,5 +306,5 @@ const projectState = {
     },
   },
   definitionVersion: '0.4.0',
-  revisionHistory: ['VJ4IV_syi9Jx5hJa', '1zGV8Jp9O3itfamd'],
+  revisionHistory: ['bvWnd9o3aavgc4oD', 'VJ4IV_syi9Jx5hJa', '1zGV8Jp9O3itfamd'],
 };
