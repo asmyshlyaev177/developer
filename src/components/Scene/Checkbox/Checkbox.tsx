@@ -42,7 +42,7 @@ export const Checkbox = ({
         className={classes.input}
       />
       <label htmlFor="checkbox" className={classes.label}>
-        <span>Impressed</span>
+        <span>Can do</span>
       </label>
     </div>
   );

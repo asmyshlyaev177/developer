@@ -4,8 +4,6 @@ import classes from './Hero.module.scss';
 
 import { type TextEntry, useQueue } from 'components/Queue';
 
-// TODO: https://www.smashingmagazine.com/2021/07/dynamic-header-intersection-observer/
-
 import { TextTyping } from 'components/TextTyping';
 import { Dot } from 'components/Dot';
 import { useMouseTilt } from 'hooks/useMouseTilt';
@@ -25,7 +23,6 @@ const texts: TextEntry[] = [
   { id: '5', text: 'React.js', interval: 50, delay: 0 },
 ];
 
-// TODO: try this https://github.com/theatre-js/theatre/tree/main/packages/dataverse#tickers
 export const Hero = () => {
   const { isAnimating, reset, useSubscribe } = useQueue(texts);
 

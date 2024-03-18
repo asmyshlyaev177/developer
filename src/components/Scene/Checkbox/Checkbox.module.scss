@@ -16,6 +16,7 @@
     box-sizing: border-box;
     transition: border-color ease 0.2s;
     cursor: pointer;
+    white-space: nowrap;
   }
 
   & label::before,

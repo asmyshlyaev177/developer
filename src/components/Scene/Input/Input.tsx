@@ -6,6 +6,17 @@ import classes from './Input.module.scss';
 import { stubCb } from 'helpers';
 import { useTrottle } from 'hooks/useTrottle';
 
+const WORDS = [
+  'Typescript',
+  'Javascript',
+  'React.js',
+  'Next.js',
+  'Scss',
+  'TDD',
+  'git',
+  'HTML',
+];
+
 export const Input = ({
   control,
   onUpdate,
@@ -14,14 +25,13 @@ export const Input = ({
   onUpdate: (val: string) => void;
 }) => {
   const texts = React.useMemo(
-    () => [
-      { id: '1', text: 'Alex', interval: 50, delay: 0 },
-      { id: '2', text: 'John', interval: 50, delay: 0 },
-      { id: '3', text: 'Olivia', interval: 50, delay: 0 },
-      { id: '4', text: 'Mike', interval: 50, delay: 0 },
-      { id: '5', text: 'Emma', interval: 50, delay: 0 },
-      { id: '6', text: 'James', interval: 50, delay: 0 },
-    ],
+    () =>
+      WORDS.map((text, ind) => ({
+        id: String(ind + 1),
+        text,
+        interval: 50,
+        delay: 0,
+      })),
     [],
   );
 
@@ -45,10 +55,12 @@ export const Input = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  // TODO: get rid of label
+  // can't figure out something for label
   return (
     <>
       <label htmlFor="input" className={classes.label}>
-        Name
+        Skill
       </label>
       <input
         placeholder="..."
