@@ -1,6 +1,4 @@
-
 .container {
-  // height: 80vh;
   height: calc(100vh - var(--header-height-big) - var(--gap) * 2);
   position: relative;
   display: flex;
@@ -10,6 +8,10 @@
   --background-color: rgb(68 195 195 / 26%);
   --shadow-color: rgb(68 195 195 / 17%);
   --elev-color: rgb(68 195 195 / 17%);
+
+  @media (orientation: landscape) or (max-height: 700px) {
+    height: auto;
+  }
 }
 
 .innerContainer {
@@ -28,7 +30,7 @@
   padding: 30px;
   background-color: var(--background-color);
   max-width: 800px;
-  min-height: 300px;
+  min-height: 600px;
   width: 100%;
 
   box-shadow:
@@ -36,7 +38,7 @@
     1px 1px 4px 1px var(--shadow-color),
     1px 2px 5px 1px var(--shadow-color),
     2px 3px 6px 2px var(--shadow-color);
-  border-radius: 12px;
+  border-radius: 50px;
 }
 
 .field1 {
