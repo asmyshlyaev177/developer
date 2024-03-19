@@ -10,6 +10,7 @@ import { Input } from './Input';
 import { Checkbox } from './Checkbox';
 import { stubCb } from 'helpers';
 import { Ball } from './Ball';
+import { useIntersectionObserver } from 'hooks/useIntersectionObserver';
 
 import { type Control } from 'types';
 
@@ -25,6 +26,10 @@ export const Scene = () => {
   });
 
   const ballRef = React.useRef<HTMLDivElement | null>(null);
+
+  const { ref: sceneRef, isIntersecting } = useIntersectionObserver({
+    threshold: 0.7,
+  });
 
   React.useEffect(() => {
     // studio.initialize();
@@ -51,20 +56,22 @@ export const Scene = () => {
         if (obj.field === '2') {
           refs.current.field2.current?.act?.(true);
         }
-        // if (obj.field === '3') {
-        //   refs.current.field2.current?.act?.(false);
-        // }
       }
     });
 
     project.ready.then(() => {
-      sheet.sequence.play({
-        iterationCount: Infinity,
-        range: [0, 3.8],
-        rate: 0.8,
-      });
+      if (isIntersecting) {
+        sheet.sequence.play({
+          iterationCount: Infinity,
+          range: [0, 3.8],
+          rate: 0.8,
+        });
+      } else {
+        sheet.sequence.pause();
+        sheet.sequence.position = 0;
+      }
     });
-  }, []);
+  }, [isIntersecting]);
 
   const [state, setState] = React.useState({
     skill: '',
@@ -81,7 +88,7 @@ export const Scene = () => {
 
   return (
     <section className={classes.container}>
-      <div className={classes.innerContainer}>
+      <div className={classes.innerContainer} ref={sceneRef}>
         <div className={classes.scene}>
           <Ball ref={ballRef} />
 
