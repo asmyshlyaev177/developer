@@ -19,7 +19,7 @@ const texts: TextEntry[] = [
     interval: 50,
     delay: 300,
   },
-  { id: '4', text: 'specializing on ', interval: 50, delay: 0 },
+  { id: '4', text: 'Specializing in ', interval: 50, delay: 0 },
   { id: '5', text: 'React.js', interval: 50, delay: 0 },
 ];
 

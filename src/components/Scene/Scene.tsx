@@ -64,11 +64,6 @@ export const Scene = () => {
         rate: 0.8,
       });
     });
-    // TODO: play/pause with intersectionObserver ?
-    // setTimeout(() => {
-    //   sheet.sequence.pause();
-    //   sheet.sequence.position = 0;
-    // }, 5000);
   }, []);
 
   const [state, setState] = React.useState({
