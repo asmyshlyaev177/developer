@@ -8,7 +8,6 @@ import { getProject } from '@theatre/core';
 
 import { Input } from './Input';
 import { Checkbox } from './Checkbox';
-import { State } from './State';
 import { stubCb } from 'helpers';
 import { Ball } from './Ball';
 
@@ -16,6 +15,7 @@ import { type Control } from 'types';
 
 type fields = 'field1' | 'field2';
 
+// TODO: enter animation ?
 export const Scene = () => {
   const refs = React.useRef<{
     [key in fields]: Control;
@@ -44,14 +44,27 @@ export const Scene = () => {
       ballRef.current.style.left = `${obj.x}%`;
       ballRef.current.style.top = `${obj.y}%`;
       if (obj.field) {
-        refs.current[`field${obj.field}` as fields]?.current?.act?.();
+        if (obj.field === '1') {
+          refs.current.field1.current?.act?.();
+          refs.current.field2.current?.act?.(false);
+        }
+        if (obj.field === '2') {
+          refs.current.field2.current?.act?.(true);
+        }
+        // if (obj.field === '3') {
+        //   refs.current.field2.current?.act?.(false);
+        // }
       }
     });
 
     project.ready.then(() => {
-      sheet.sequence.play({ iterationCount: Infinity, range: [0, 3.5] });
+      sheet.sequence.play({
+        iterationCount: Infinity,
+        range: [0, 3.8],
+        rate: 0.8,
+      });
     });
-    // TODO: play/pause with intersectionObserver
+    // TODO: play/pause with intersectionObserver ?
     // setTimeout(() => {
     //   sheet.sequence.pause();
     //   sheet.sequence.position = 0;
@@ -59,40 +72,40 @@ export const Scene = () => {
   }, []);
 
   const [state, setState] = React.useState({
-    name: '',
-    impressed: false,
+    skill: '',
+    canDo: false,
   });
 
   const onUpdate1 = React.useCallback((val: string) => {
-    setState((cur) => ({ ...cur, name: val }));
+    setState((cur) => ({ ...cur, skill: val }));
   }, []);
 
   const onUpdate2 = React.useCallback((val: boolean) => {
-    setState((curr) => ({ ...curr, impressed: val }));
+    setState((curr) => ({ ...curr, canDo: val }));
   }, []);
 
   return (
     <section className={classes.container}>
-      <div className={classes.scene}>
-        <Ball ref={ballRef} />
+      <div className={classes.innerContainer}>
+        <div className={classes.scene}>
+          <Ball ref={ballRef} />
 
-        <div className={classes.field1}>
-          <Input control={refs.current.field1} onUpdate={onUpdate1} />
+          <div className={classes.field1}>
+            <Input control={refs.current.field1} onUpdate={onUpdate1} />
+          </div>
+
+          <div className={classes.field2}>
+            <Checkbox
+              value={state.canDo}
+              control={refs.current.field2}
+              onChange={onUpdate2}
+            />
+          </div>
+
+          <div className={classes.field3}>
+            <button>Contact me</button>
+          </div>
         </div>
-
-        <div className={classes.field2}>
-          <Checkbox
-            value={state.impressed}
-            control={refs.current.field2}
-            onChange={onUpdate2}
-          />
-        </div>
-
-        <div className={classes.field3}>
-          <button>Contact me</button>
-        </div>
-
-        <State value={state} />
       </div>
     </section>
   );
@@ -167,7 +180,7 @@ const projectState = {
                     connectedRight: true,
                     handles: [0.5431166632650447, 0.8530989425141517, 0.5, 0],
                     type: 'bezier',
-                    value: 101.28404181824843,
+                    value: 105,
                   },
                 ],
               },
@@ -222,7 +235,7 @@ const projectState = {
                     connectedRight: true,
                     handles: [0.6891698079980394, -0.3338753457992627, 0.5, 0],
                     type: 'bezier',
-                    value: 101,
+                    value: 105,
                   },
                 ],
               },
@@ -306,5 +319,10 @@ const projectState = {
     },
   },
   definitionVersion: '0.4.0',
-  revisionHistory: ['bvWnd9o3aavgc4oD', 'VJ4IV_syi9Jx5hJa', '1zGV8Jp9O3itfamd'],
+  revisionHistory: [
+    'eBbg5ce-GwBKBpAY',
+    'bvWnd9o3aavgc4oD',
+    'VJ4IV_syi9Jx5hJa',
+    '1zGV8Jp9O3itfamd',
+  ],
 };

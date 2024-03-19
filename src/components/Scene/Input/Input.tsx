@@ -63,6 +63,7 @@ export const Input = ({
         Skill
       </label>
       <input
+        className={classes.input}
         placeholder="..."
         id="input"
         onChange={stubCb}

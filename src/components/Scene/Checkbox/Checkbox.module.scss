@@ -1,26 +1,32 @@
 .container {
   display: flex;
-  cursor: pointer;
 
   --checkbox-height: 25px;
   --color: #34b93d;
+  padding: 5px 5px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
 
-  & label {
+  &, & span, & input, & label {
+    cursor: pointer;
+  }
+
+  & span {
     height: var(--checkbox-height);
     width: var(--checkbox-height);
     background-color: transparent;
-    border: calc(var(--checkbox-height) * 0.05) solid white;
+    border: calc(var(--checkbox-height) * 0.05) solid grey;
     border-radius: 5px;
     position: relative;
     display: inline-block;
     box-sizing: border-box;
     transition: border-color ease 0.2s;
-    cursor: pointer;
     white-space: nowrap;
   }
 
-  & label::before,
-  & label::after {
+  & span::before,
+  & span::after {
     box-sizing: border-box;
     position: absolute;
     height: 0;
@@ -33,29 +39,29 @@
     transition: opacity ease 0.3;
   }
 
-  & label::before {
+  & span::before {
     top: calc(var(--checkbox-height) * 0.72);
     left: calc(var(--checkbox-height) * 0.41);
     transform: rotate(-135deg);
   }
-  & label::after {
+  & span::after {
     top: calc(var(--checkbox-height) * 0.37);
     left: calc(var(--checkbox-height) * 0.05);
     transform: rotate(-45deg);
   }
 
-  & input[type='checkbox']:checked + label,
-  & label.checked {
+  & input[type='checkbox']:checked + span,
+  & span.checked {
     border-color: var(--color);
   }
 
-  & input[type='checkbox']:checked + label::after,
-  & label.checked::after {
+  & input[type='checkbox']:checked + span::after,
+  & span.checked::after {
     height: calc(var(--checkbox-height) / 2);
     animation: dothabottomcheck 0.2s ease 0s forwards;
   }
-  & input[type='checkbox']:checked + label::before,
-  & label.checked::before {
+  & input[type='checkbox']:checked + span::before,
+  & span.checked::before {
     height: calc(var(--checkbox-height) * 1.2);
     animation: dothatopcheck 0.3s ease 0s forwards;
   }
@@ -64,14 +70,18 @@
 .label {
   user-select: none;
   font-size: 14px;
-
-  & span {
-    margin-left: calc(var(--checkbox-height) + 5px);
-  }
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .input {
-  display: none;
+  position: absolute;
+  width: var(--checkbox-height);
+  height: var(--checkbox-height);
+  opacity: 0;
+  z-index: 5;
 }
 
 @keyframes dothabottomcheck {

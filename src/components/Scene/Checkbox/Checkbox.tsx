@@ -13,9 +13,12 @@ export const Checkbox = ({
   onChange: (val: boolean) => void;
   control: Control;
 }) => {
-  const act = React.useCallback(() => {
-    onChange(!value);
-  }, [onChange, value]);
+  const act = React.useCallback(
+    (_value?: boolean) => {
+      onChange(_value ?? !value);
+    },
+    [onChange, value],
+  );
 
   const cb = useTrottle(act);
 
@@ -41,8 +44,9 @@ export const Checkbox = ({
         onChange={onChangeHandler}
         className={classes.input}
       />
+      <span />
       <label htmlFor="checkbox" className={classes.label}>
-        <span>Can do</span>
+        Can do
       </label>
     </div>
   );
