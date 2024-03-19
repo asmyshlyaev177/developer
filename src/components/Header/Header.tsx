@@ -27,6 +27,7 @@ export const Header = () => {
             <GithubIcon />
           </Icon>
         </Link>
+        {/* TODO: add telegram ? */}
       </div>
 
       <div className={classes.lineContainer}>

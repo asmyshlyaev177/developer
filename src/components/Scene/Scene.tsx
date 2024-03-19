@@ -94,6 +94,7 @@ export const Scene = () => {
 
   const triggerAnimation = React.useCallback(() => {
     const line = document.getElementById(lineId);
+    // TODO: add scale animation too
 
     if (line) {
       line.style.animation = '1s ease 0s 3 linePulse';
