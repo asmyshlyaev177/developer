@@ -10,13 +10,19 @@ export const Header = () => {
   return (
     <header className={classes.header}>
       <div className={classes.links}>
-        <Link href="https://www.linkedin.com/in/asmyshlyaev177/">
+        <Link
+          href="https://www.linkedin.com/in/asmyshlyaev177/"
+          label="asmyshlyaev177 linkedin profile"
+        >
           <Icon>
             <LinkedinIcon />
           </Icon>
         </Link>
 
-        <Link href="https://github.com/asmyshlyaev177">
+        <Link
+          href="https://github.com/asmyshlyaev177"
+          label="asmyshlyaev177 github profile"
+        >
           <Icon>
             <GithubIcon />
           </Icon>
@@ -35,13 +41,15 @@ const Link = ({
   children,
   href,
   target = '_blank',
+  label,
 }: {
   children: React.ReactNode;
   href: string;
+  label: string;
   target?: string;
 }) => {
   return (
-    <a href={href} target={target} rel="noopener">
+    <a href={href} target={target} rel="noopener" aria-label={label}>
       {children}
     </a>
   );
