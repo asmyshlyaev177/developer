@@ -1,6 +1,7 @@
 
 .container {
-  height: 80vh;
+  // height: 80vh;
+  height: calc(100vh - var(--header-height-big) - var(--gap) * 2);
   position: relative;
   display: flex;
   justify-content: center;

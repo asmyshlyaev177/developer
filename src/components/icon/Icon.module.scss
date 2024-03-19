@@ -1,0 +1,18 @@
+.container {
+  width: auto;
+  height: 100%;
+  position: relative;
+  aspect-ratio: 1;
+
+  & svg path {
+    transition: all 0.2s;
+  }
+
+  & svg [class$='background'] {
+    fill: white;
+  }
+
+  &:hover [class$='background'] {
+    fill: var(--color-brand);
+  }
+}

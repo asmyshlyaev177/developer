@@ -3,5 +3,13 @@
   position: sticky;
   top: 0;
   border: 1px solid white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 18px;
 
+  & * {
+    height: 100%;
+  }
 }
