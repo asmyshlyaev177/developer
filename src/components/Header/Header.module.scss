@@ -2,14 +2,44 @@
   height: var(--header-height-big);
   position: sticky;
   top: 0;
-  border-bottom: 2px solid white;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  gap: 18px;
   padding: 18px;
+  gap: 18px;
+  flex-wrap: wrap;
+  max-width: var(--max-width);
 
   & * {
     height: 100%;
   }
+}
+
+.links {
+  display: flex;
+  gap: 18px;
+
+  & > *:last-child {
+    margin-right: 12px;
+  }
+}
+
+.lineContainer {
+  display: flex;
+  width: 100%;
+  order: 5;
+}
+
+.line1 {
+  height: 2px;
+  background-color: white;
+  width: 100%;
+}
+
+.line2 {
+  height: 2px;
+  background-color: white;
+  min-width: 120px;
+  max-width: 120px;
+  transition: all 0.5s;
 }

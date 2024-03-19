@@ -1,11 +1,10 @@
-@import "reset.scss";
-
+@import 'reset.scss';
 
 body {
   margin: 0;
   padding: 0;
 
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -14,6 +13,7 @@ body {
   --gap: 2rem;
   --header-height-big: 70px;
   --color-brand: #ff8c00;
+  --max-width: 1250px;
 }
 
 .caret {
@@ -22,13 +22,25 @@ body {
 }
 
 .roboto {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .roboto-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-style: normal;
+}
+
+@keyframes linePulse {
+  0%,
+  50%,
+  100% {
+    background-color: green;
+  }
+  30%,
+  80% {
+    background-color: orange;
+  }
 }

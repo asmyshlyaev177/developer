@@ -14,6 +14,7 @@ import { useIntersectionObserver } from 'hooks/useIntersectionObserver';
 import projectState from './projectState.json';
 
 import { type Control } from 'types';
+import { lineId } from '../../constants';
 
 type fields = 'field1' | 'field2';
 
@@ -91,6 +92,17 @@ export const Scene = () => {
     setState((curr) => ({ ...curr, canDo: val }));
   }, []);
 
+  const triggerAnimation = React.useCallback(() => {
+    const line = document.getElementById(lineId);
+
+    if (line) {
+      line.style.animation = '1s ease 0s 3 linePulse';
+      setTimeout(() => {
+        line.style.animation = '';
+      }, 1000);
+    }
+  }, []);
+
   return (
     <section className={classes.container}>
       <div className={classes.innerContainer} ref={sceneRef}>
@@ -110,7 +122,7 @@ export const Scene = () => {
           </div>
 
           <div className={classes.field3}>
-            <button>Contact me</button>
+            <button onClick={triggerAnimation}>Contact me</button>
           </div>
         </div>
       </div>
