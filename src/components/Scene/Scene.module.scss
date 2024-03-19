@@ -1,5 +1,5 @@
 .container {
-  height: calc(100vh - var(--header-height-big) - var(--gap) * 2);
+  height: auto;
   position: relative;
   display: flex;
   justify-content: center;
@@ -8,10 +8,6 @@
   --background-color: rgb(68 195 195 / 26%);
   --shadow-color: rgb(68 195 195 / 17%);
   --elev-color: rgb(68 195 195 / 17%);
-
-  @media (orientation: landscape) or (max-height: 700px) {
-    height: auto;
-  }
 }
 
 .innerContainer {
