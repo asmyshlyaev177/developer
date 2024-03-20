@@ -5,7 +5,6 @@ const PERSPECTIVE = 500;
 export const useMouseTilt = (perspective: number = PERSPECTIVE) => {
   const elRef = React.useRef<HTMLDivElement | null>(null);
 
-  // TODO: handle or disable on touch only devices
   const onMouseMove = React.useCallback(
     (ev: React.MouseEvent<HTMLElement, MouseEvent>) => {
       const { clientX, clientY } = ev;
