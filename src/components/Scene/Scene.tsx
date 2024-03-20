@@ -64,19 +64,18 @@ export const Scene = () => {
   }, []);
 
   React.useEffect(() => {
-    if (!sheet.current) {
-      return () => {};
-    }
-    if (isIntersecting) {
-      sheet.current.sequence.play({
-        iterationCount: Infinity,
-        range: [0, 3.8],
-        rate: 0.8,
-      });
-    } else {
-      sheet.current.sequence.pause();
-      sheet.current.sequence.position = 0;
-    }
+    sheet.current!.project.ready.then(() => {
+      if (isIntersecting) {
+        sheet.current!.sequence.play({
+          iterationCount: Infinity,
+          range: [0, 3.8],
+          rate: 0.8,
+        });
+      } else {
+        sheet.current!.sequence.pause();
+        sheet.current!.sequence.position = 0;
+      }
+    });
   }, [isIntersecting]);
 
   const [state, setState] = React.useState({
