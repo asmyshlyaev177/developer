@@ -28,7 +28,7 @@
     min-height: 48px;
 
     @media ((hover: none) and (orientation: portrait)) or (max-width: 600px) {
-      margin: 20px;
+      margin: 20px 0;
     }
   }
 }
