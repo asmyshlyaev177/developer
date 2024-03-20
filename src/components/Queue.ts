@@ -31,7 +31,7 @@ class Queue {
   }
 
   private getNextProm = () => {
-    return this.stack.splice(0, 1)[0];
+    return this.stack.splice(0, 1)?.[0];
   };
 
   private notify = (id: string, val: string) => {

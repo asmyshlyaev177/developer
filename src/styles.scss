@@ -37,10 +37,10 @@ body {
   0%,
   50%,
   100% {
-    background-color: green;
+    background-color: white;
   }
   30%,
   80% {
-    background-color: orange;
+    background-color: var(--color-brand);
   }
 }
