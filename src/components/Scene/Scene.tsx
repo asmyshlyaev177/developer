@@ -110,7 +110,7 @@ export const Scene = () => {
       animTimer.current = +setTimeout(() => {
         line.style.animation = '';
         links.style.animation = '';
-      }, 3000);
+      }, 1100);
     }
   }, []);
 
