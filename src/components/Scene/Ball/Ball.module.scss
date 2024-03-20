@@ -6,8 +6,10 @@
   position: absolute;
   top: -10%;
   left: -10%;
+  // transform-style: flat;
+  z-index: 10;
   // top: 20% !important;
-  // left: 50% !important;
+  // left: 80% !important;
 }
 
 .clipCircle {

@@ -12,7 +12,7 @@ import { stubCb } from 'helpers';
 import { Ball } from './Ball';
 import { useIntersectionObserver } from 'hooks/useIntersectionObserver';
 import projectState from './projectState.json';
-
+import { useMouseTilt } from 'hooks/useMouseTilt';
 import { type Control } from 'types';
 import { lineId } from '../../constants';
 
@@ -31,7 +31,7 @@ export const Scene = () => {
   const { ref: sceneRef, isIntersecting } = useIntersectionObserver({
     threshold: 0.7,
   });
-
+  const { elRef: tiltRef, onMouseMove, onMouseLeave } = useMouseTilt(1000);
   const sheet = React.useRef<ISheet | null>(null);
 
   React.useEffect(() => {
@@ -106,24 +106,31 @@ export const Scene = () => {
 
   return (
     <section className={classes.container}>
-      <div className={classes.innerContainer} ref={sceneRef}>
-        <div className={classes.scene}>
-          <Ball ref={ballRef} />
+      <div
+        ref={tiltRef}
+        className={classes.tiltContainer}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+      >
+        <div className={classes.innerContainer} ref={sceneRef}>
+          <div className={classes.scene}>
+            <Ball ref={ballRef} />
 
-          <div className={classes.field1}>
-            <Input control={refs.current.field1} onUpdate={onUpdate1} />
-          </div>
+            <div className={classes.field1}>
+              <Input control={refs.current.field1} onUpdate={onUpdate1} />
+            </div>
 
-          <div className={classes.field2}>
-            <Checkbox
-              value={state.canDo}
-              control={refs.current.field2}
-              onChange={onUpdate2}
-            />
-          </div>
+            <div className={classes.field2}>
+              <Checkbox
+                value={state.canDo}
+                control={refs.current.field2}
+                onChange={onUpdate2}
+              />
+            </div>
 
-          <div className={classes.field3}>
-            <button onClick={triggerAnimation}>Contact me</button>
+            <div className={classes.field3}>
+              <button onClick={triggerAnimation}>Contact me</button>
+            </div>
           </div>
         </div>
       </div>

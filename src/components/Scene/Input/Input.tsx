@@ -55,8 +55,6 @@ export const Input = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-  // TODO: get rid of label
-  // can't figure out something for label
   return (
     <>
       <label htmlFor="input" className={classes.label}>

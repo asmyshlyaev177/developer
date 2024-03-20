@@ -6,7 +6,6 @@ import { type TextEntry, useQueue } from 'components/Queue';
 
 import { TextTyping } from 'components/TextTyping';
 import { Dot } from 'components/Dot';
-import { useMouseTilt } from 'hooks/useMouseTilt';
 
 const texts: TextEntry[] = [
   // Stub for font load
@@ -26,18 +25,11 @@ const texts: TextEntry[] = [
 export const Hero = () => {
   const { isAnimating, reset, useSubscribe } = useQueue(texts);
 
-  const { elRef, onMouseMove, onMouseLeave } = useMouseTilt();
-
   return (
     <section className={classes.hero}>
       <div className={classes.block}>
         <Dot active={isAnimating} onClick={reset} />
-        <div
-          className={classes['inner-wrapper']}
-          ref={elRef}
-          onMouseMove={onMouseMove}
-          onMouseLeave={onMouseLeave}
-        >
+        <div className={classes['inner-wrapper']}>
           <div>
             <TextTyping
               id="1"
