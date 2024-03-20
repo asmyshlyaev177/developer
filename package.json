@@ -3,6 +3,7 @@
   "description": "Personal business card website",
   "version": "0.1.0",
   "private": true,
+  "license": "GPL-3",
   "author": {
     "name": "Aleksandr Smyshliaev",
     "email": "asmyshlyaev177@gmail.com",
