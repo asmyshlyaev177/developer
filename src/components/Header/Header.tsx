@@ -3,13 +3,14 @@ import React from 'react';
 import classes from './Header.module.scss';
 import { ReactComponent as LinkedinIcon } from 'assets/linkedIn-logo.svg';
 import { ReactComponent as GithubIcon } from 'assets/github-logo.svg';
+import { ReactComponent as TelegramIcon } from 'assets/telegram-logo.svg';
 import { Icon } from 'components/icon';
-import { lineId } from '../../constants';
+import { lineId, linksId } from '../../constants';
 
 export const Header = () => {
   return (
     <header className={classes.header}>
-      <div className={classes.links}>
+      <div className={classes.links} id={linksId}>
         <Link
           href="https://www.linkedin.com/in/asmyshlyaev177/"
           label="asmyshlyaev177 linkedin profile"
@@ -27,7 +28,14 @@ export const Header = () => {
             <GithubIcon />
           </Icon>
         </Link>
-        {/* TODO: add telegram ? */}
+        <Link
+          href="https://t.me/asmyshlyaev177"
+          label="asmyshlyaev177 telegram"
+        >
+          <Icon>
+            <TelegramIcon />
+          </Icon>
+        </Link>
       </div>
 
       <div className={classes.lineContainer}>

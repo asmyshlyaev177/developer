@@ -14,7 +14,7 @@ import { useIntersectionObserver } from 'hooks/useIntersectionObserver';
 import projectState from './projectState.json';
 import { useMouseTilt } from 'hooks/useMouseTilt';
 import { type Control } from 'types';
-import { lineId } from '../../constants';
+import { lineId, linksId } from '../../constants';
 
 type fields = 'field1' | 'field2';
 
@@ -92,15 +92,25 @@ export const Scene = () => {
     setState((curr) => ({ ...curr, canDo: val }));
   }, []);
 
+  const animTimer = React.useRef(0);
   const triggerAnimation = React.useCallback(() => {
     const line = document.getElementById(lineId);
-    // TODO: add scale animation too
+    const links = document.getElementById(linksId);
 
-    if (line) {
-      line.style.animation = '1s ease 0s 3 linePulse';
+    if (line && links) {
+      clearTimeout(animTimer.current);
+      line.style.animation = 'none';
+      links.style.animation = 'none';
+
       setTimeout(() => {
+        line.style.animation = '.5s ease 0s 2 linePulse';
+        links.style.animation = '.5s ease 0s 2 scale';
+      }, 0);
+
+      animTimer.current = +setTimeout(() => {
         line.style.animation = '';
-      }, 1000);
+        links.style.animation = '';
+      }, 3000);
     }
   }, []);
 
