@@ -29,7 +29,7 @@ export const Scene = () => {
   const ballRef = React.useRef<HTMLDivElement | null>(null);
 
   const { ref: sceneRef, isIntersecting } = useIntersectionObserver({
-    threshold: 0.7,
+    threshold: 0.4,
   });
   const { elRef: tiltRef, onMouseMove, onMouseLeave } = useMouseTilt(1000);
   const sheet = React.useRef<ISheet | null>(null);
