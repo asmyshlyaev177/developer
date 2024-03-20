@@ -39,20 +39,40 @@ export const Hero = () => {
           onMouseLeave={onMouseLeave}
         >
           <div>
-            <TextTyping id="1" useSubscribe={useSubscribe} />
+            <TextTyping
+              id="1"
+              useSubscribe={useSubscribe}
+              fullText={texts[1].text}
+            />
             <strong>
-              <TextTyping id="2" useSubscribe={useSubscribe} />
+              <TextTyping
+                id="2"
+                useSubscribe={useSubscribe}
+                fullText={texts[2].text}
+              />
             </strong>
           </div>
 
           <div>
-            <TextTyping id="3" useSubscribe={useSubscribe} />
+            <TextTyping
+              id="3"
+              useSubscribe={useSubscribe}
+              fullText={texts[3].text}
+            />
           </div>
 
           <div>
-            <TextTyping id="4" useSubscribe={useSubscribe} />
+            <TextTyping
+              id="4"
+              useSubscribe={useSubscribe}
+              fullText={texts[4].text}
+            />
             <strong>
-              <TextTyping id="5" useSubscribe={useSubscribe} />
+              <TextTyping
+                id="5"
+                useSubscribe={useSubscribe}
+                fullText={texts[5].text}
+              />
             </strong>
           </div>
         </div>
