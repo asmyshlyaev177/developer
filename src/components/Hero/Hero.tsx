@@ -26,7 +26,6 @@ const texts: TextEntry[] = [
 export const Hero = () => {
   const { isAnimating, reset, useSubscribe } = useQueue(texts);
 
-  // TODO: tilt doesn't work on WebKit based browsers
   const { elRef, onMouseMove, onMouseLeave } = useMouseTilt();
 
   return (
